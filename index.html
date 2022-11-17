@@ -14,29 +14,27 @@
     <title>Weather App</title>
 </head>
 
-<body>
-    <header class="container-fluid text-light mb-5 p-3">
-        <div class="d-flex justify-content-center">
-            <h1>Weather Dashboard</h1>
-        </div>
+<body class="flex-column min-100-vh">
+    <header class="text-light mb-5 p-3">
+        <h1 class="d-flex justify-content-center">Weather Dashboard</h1>
     </header>
-    <main class="d-flex m-3">
-        <div class="list-group me-4">
-            <div class="form-group">
-                <h2>Search for a City:</h2>
-                <input type="text" id="search-input" class="form-control" placeholder="San Antonio" required />
-            <button class="btn btn-block btn-success mt-2">Search</button>
-            </div>
-            <li>
+
+    <main class="flex-row justify-space-between">
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <h2 class="card-title">Search for a City:</h2>
+                <form class="card-body">
+                    <input type="text" id="search-input" class="form-input" placeholder="San Antonio" required />
+                    <button type="submit" id="submit-btn" class="btn btn-block btn-success mt-2">Search</button>
+                </form>
                 <hr class="dropdown-divider">
-            </li>
-            <div class="d-grid gap-2">
-                <button class="btn btn-secondary" type="button">search results</button>
-                <button class="btn btn-secondary" type="button">search results</button>
+                <div id="search-history" class="list-group"></div>
             </div>
         </div>
-        <div class="row ms-10">
-            <div class="col-12 col-md-9  border border-dark ">
+
+        <!--Current Day Weather Card-->
+        <div class="col-12 col-md-8">
+            <div class="border border-dark ">
                 <h3>City name and date</h3>
                 <i>weather icon</i>
                 <ul class="list-group list-group-flush">
@@ -45,7 +43,10 @@
                     <li class="list-group-item">humidity</li>
                 </ul>
             </div>
-            <!-- Five Weather Cards -->
+        </div>
+        
+        <!-- Five Weather Cards -->
+        <div class="col-12 col-md-8">
             <h3 class="my-3">5-Day Forecast</h3>
             <div class="row container my-2">
                 <div class="card bg-dark text-light col-2 mx-2">
