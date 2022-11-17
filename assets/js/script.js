@@ -1,31 +1,30 @@
 var APIKey = "db2abe03dbd181408bf857199d38b427";
-var cityName;
+var cityInput;
 var cityLat = "";
 var cityLon = "";
+var cityTemp;
+var cityWind;
+var cityHumidity;
 var citySearchEl = document.getElementById('search-input');
 var searchButtonEl = document.querySelector('#submit-btn');
 var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
 
-
-// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-
-
-// var formSubmitHandler
+// Gathers users search parameter
 var searchSubmit = function (event) {
     event.preventDefault();
 
-    var cityName = citySearchEl.value.trim();
-    console.log(cityName)
+    cityInput = citySearchEl.value.trim();
+    console.log(cityInput)
 
-    if (cityName) {
-        getCityLocation(cityName);
+    if (cityInput) {
+        getCityLocation(cityInput);
         citySearchEl.value = '';
     } else {
         alert('Please enter a city name');
     }
 };
 
-// var getUserRepos
+// Gets the city lat and lon coordinates
 // Country code https://www.iso.org/obp/ui/#search/code/
 // https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 var getCityLocation = function (city) {
@@ -39,7 +38,8 @@ var getCityLocation = function (city) {
                     console.log(data);
                     cityLat = data[0].lat.toString();
                     cityLon = data[0].lon.toString();
-                    getCityWeather();
+                    getCurrentWeather();
+                    getFutureWeather();
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -50,9 +50,9 @@ var getCityLocation = function (city) {
         });
 };
 
-
-var getCityWeather = function (city) {
-     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
+// Gets cities current weather by lat and lon coordinates
+var getCurrentWeather = function (city) {
+     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/weather?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
      
      fetch(geoCurrentUrl)
      .then(function (response) {
@@ -60,7 +60,15 @@ var getCityWeather = function (city) {
              console.log(response);
              response.json().then(function (data) {
                  console.log(data); 
-                 displayRepos(data, user);              
+                //  displayWeather();
+                 cityName = data.name;
+                 cityTemp = data.main.temp;
+                 cityWind = data.wind.speed;
+                 cityHumidity = data.main.humidity;
+                 console.log(data.name);
+                 console.log(data.main.temp);
+                 console.log(data.wind.speed);
+                 console.log(data.main.humidity);            
              });
          } else {
              alert('Error: ' + response.statusText);
@@ -71,42 +79,65 @@ var getCityWeather = function (city) {
      });
 };
 
-//var displayRepos
-// var displayForecast = function (repos, searchTerm) {
-//     if (repos.length === 0) {
-//       repoContainerEl.textContent = 'No repositories found.';
-//       return;
-//     }
-
-//     repoSearchTerm.textContent = searchTerm;
-
-//   for (var i = 0; i < repos.length; i++) {
-//     var repoName = repos[i].owner.login + '/' + repos[i].name;
-
-//     var repoEl = document.createElement('a');
-//     repoEl.classList = 'list-item flex-row justify-space-between align-center';
-//     repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
-
-//     var titleEl = document.createElement('span');
-//     titleEl.textContent = repoName;
-
-//     repoEl.appendChild(titleEl);
-
-//     var statusEl = document.createElement('span');
-//     statusEl.classList = 'flex-row align-center';
-
-//     if (repos[i].open_issues_count > 0) {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-//     } else {
-//       statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-//     }
-
-//     repoEl.appendChild(statusEl);
-
-//     repoContainerEl.appendChild(repoEl);
-//   }
+// // Gets cities future weather by lat and lon coordinates
+// var getFutureWeather = function (city) {
+//     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
+    
+//     fetch(geoCurrentUrl)
+//     .then(function (response) {
+//         if (response.ok) {
+//             console.log(response);
+//             response.json().then(function (data) {
+//                 console.log(data); 
+//                //  displayWeather();
+//                 cityName = city.name;
+//                 console.log(typeof cityName)              
+//             });
+//         } else {
+//             alert('Error: ' + response.statusText);
+//         }
+//     })
+//     .catch(function (error) {
+//         alert('City does not exist');
+//     });
 // };
+
+//var displayRepos
+var displayWeather = function (repos, searchTerm) {
+    if (repos.length === 0) {
+      repoContainerEl.textContent = 'No repositories found.';
+      return;
+    }
+
+    repoSearchTerm.textContent = searchTerm;
+
+  for (var i = 0; i < repos.length; i++) {
+    var repoName = repos[i].owner.login + '/' + repos[i].name;
+
+    var repoEl = document.createElement('a');
+    repoEl.classList = 'list-item flex-row justify-space-between align-center';
+    repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
+
+    var titleEl = document.createElement('span');
+    titleEl.textContent = repoName;
+
+    repoEl.appendChild(titleEl);
+
+    var statusEl = document.createElement('span');
+    statusEl.classList = 'flex-row align-center';
+
+    if (repos[i].open_issues_count > 0) {
+      statusEl.innerHTML =
+        "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
+    } else {
+      statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+    }
+
+    repoEl.appendChild(statusEl);
+
+    repoContainerEl.appendChild(repoEl);
+  }
+};
 
 
 // // var buttonClickHandler 
@@ -119,33 +150,6 @@ var getCityWeather = function (city) {
 
 //     // var displayIssues
 // var displayPastSearch = function (cities) {
-
-
-
-
-
-
-
-// var getCityName = function (user) {
-//     var geoCurrentUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',&limit=1&appid=' + APIKey;
-
-//     fetch(geoCurrentUrl)
-//       .then(function (response) {
-//         if (response.ok) {
-//           console.log(response);
-//           response.json().then(function (data) {
-//             console.log(data);
-//             displayRepos(data, user);
-//           });
-//         } else {
-//           alert('Error: ' + response.statusText);
-//         }
-//       })
-//       .catch(function (error) {
-//         alert('City does not exist');
-//       });
-//   };
-
 
 // var geoCurrent = 'http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit=5&appid={API key};
 // var geoCurrentUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',&limit=1&appid=' + APIKey;
