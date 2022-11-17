@@ -1,7 +1,7 @@
 var APIKey = "db2abe03dbd181408bf857199d38b427";
 var cityName;
-var cityLat;
-var cityLon;
+var cityLat = "";
+var cityLon = "";
 var citySearchEl = document.getElementById('search-input');
 var searchButtonEl = document.querySelector('#submit-btn');
 var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
@@ -27,31 +27,49 @@ var searchSubmit = function (event) {
 
 // var getUserRepos
 // Country code https://www.iso.org/obp/ui/#search/code/
+// https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 var getCityLocation = function (city) {
     var geoRequestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',840&limit=1&appid=' + APIKey;
-    
+
     fetch(geoRequestUrl)
-    .then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function (data) {
-          console.log(data.lat);
-          displayRepos(lat, lon);
+        .then(function (response) {
+            if (response.ok) {
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data);
+                    cityLat = data[0].lat.toString();
+                    cityLon = data[0].lon.toString();
+                    getCityWeather();
+                });
+            } else {
+                alert('Error: ' + response.statusText);
+            }
+        })
+        .catch(function (error) {
+            alert('City does not exist');
         });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('City does not exist');
-    });
 };
 
-// var getCityWeather = function (city) {
-//     var geoRequestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
 
-
-// };
+var getCityWeather = function (city) {
+     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
+     
+     fetch(geoCurrentUrl)
+     .then(function (response) {
+         if (response.ok) {
+             console.log(response);
+             response.json().then(function (data) {
+                 console.log(data); 
+                 displayRepos(data, user);              
+             });
+         } else {
+             alert('Error: ' + response.statusText);
+         }
+     })
+     .catch(function (error) {
+         alert('City does not exist');
+     });
+};
 
 //var displayRepos
 // var displayForecast = function (repos, searchTerm) {
@@ -94,7 +112,7 @@ var getCityLocation = function (city) {
 // // var buttonClickHandler 
 // var pastSearchButton = function (event) {
 //     var prevCities = document.querySelector;
-  
+
 
 
 
@@ -110,7 +128,7 @@ var getCityLocation = function (city) {
 
 // var getCityName = function (user) {
 //     var geoCurrentUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',&limit=1&appid=' + APIKey;
-  
+
 //     fetch(geoCurrentUrl)
 //       .then(function (response) {
 //         if (response.ok) {
@@ -133,11 +151,11 @@ var getCityLocation = function (city) {
 // var geoCurrentUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',&limit=1&appid=' + APIKey;
 
 searchButtonEl.addEventListener('click', searchSubmit);
-pastSearchEl.addEventListener('click', buttonClickHandler);
+// pastSearchEl.addEventListener('click', buttonClickHandler);
 
 
 
-// appending search history results 
+// appending search history results
 /* <div class="d-grid gap-2">
     <button id="search-history" class="btn btn-secondary" type="button">search results</button>
     <button id="search-history" class="btn btn-secondary" type="button">search results</button>
