@@ -76,9 +76,9 @@ var getCurrentWeather = function (city) {
                     var currentHumid = data.main.humidity;
                     var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
                     cityNameDateEL.textContent = cityName + " " + currentDay;
-                    currentTempEl.textContent = "Temp: " + currentTemp;
-                    currentWindEl.textContent = "Wind: " + currentWind;
-                    currentHumidEl.textContent = "Humidity: " + currentHumid;
+                    currentTempEl.textContent = "Temp: " + currentTemp + " \u00B0F";
+                    currentWindEl.textContent = "Wind: " + currentWind + " MPH";
+                    currentHumidEl.textContent = "Humidity: " + currentHumid + " \u0025";
                     currentIconEl.src = currentIcon;
                 });
             } else {
@@ -140,9 +140,9 @@ var displayFutureWeather = function (future) {
 
         fiveDate[i].textContent = dayjs().add(dayCount, 'day').format('M/D/YYYY');
         fiveImage[i].src = "http://openweathermap.org/img/wn/" + fiveDayForecast[i].weather[0].icon + ".png";
-        fiveTemp[i].textContent = "Temp: " + fiveDayForecast[i].main.temp;
-        fiveWind[i].textContent = "Wind: " + fiveDayForecast[i].wind.speed;
-        fiveHumid[i].textContent = "Humidity: " + fiveDayForecast[i].main.humidity;
+        fiveTemp[i].textContent = "Temp: " + fiveDayForecast[i].main.temp + " \u00B0F";
+        fiveWind[i].textContent = "Wind: " + fiveDayForecast[i].wind.speed + " MPH";
+        fiveHumid[i].textContent = "Humidity: " + fiveDayForecast[i].main.humidity + " \u0025";
         dayCount++;
     }
 };
