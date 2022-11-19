@@ -2,9 +2,9 @@ var APIKey = "db2abe03dbd181408bf857199d38b427";
 var cityInput;
 var cityLat = "";
 var cityLon = "";
-var cityTemp;
-var cityWind;
-var cityHumidity;
+var currentTempEl = document.getElementById('curtemp');
+var currentWindEl = document.getElementById('curwind');
+var currentHumidEl = document.getElementById('curhumid');
 var citySearchEl = document.getElementById('search-input');
 var searchButtonEl = document.querySelector('#submit-btn');
 var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
@@ -26,6 +26,7 @@ var searchSubmit = function (event) {
 
 // Gets the city lat and lon coordinates
 // Country code https://www.iso.org/obp/ui/#search/code/
+// https://www.freecodecamp.org/news/check-if-javascript-array-is-empty-or-not-with-length/
 // https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 var getCityLocation = function (city) {
     var geoRequestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',840&limit=1&appid=' + APIKey;
@@ -36,17 +37,21 @@ var getCityLocation = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
+                    if (data.length === 0) {
+                        alert('City does not exist!');
+                    } else {
                     cityLat = data[0].lat.toString();
                     cityLon = data[0].lon.toString();
                     getCurrentWeather();
                     getFutureWeather();
+                    }
                 });
             } else {
                 alert('Error: ' + response.statusText);
             }
         })
         .catch(function (error) {
-            alert('City does not exist');
+            alert('Unable to connect to Open Weather');
         });
 };
 
@@ -62,9 +67,12 @@ var getCurrentWeather = function (city) {
                  console.log(data); 
                 //  displayWeather();
                  cityName = data.name;
-                 cityTemp = data.main.temp;
-                 cityWind = data.wind.speed;
-                 cityHumidity = data.main.humidity;
+                var currentTemp = data.main.temp;
+                var currentWind = data.wind.speed;
+                var currentHumid = data.main.humidity;
+                currentTempEl.textContent = "Temp: " + currentTemp;
+                currentWindEl.textContent = "Wind: " +currentWind;
+                currentHumidEl.textContent = "Humidity: " + currentHumid;
                  console.log(data.name);
                  console.log(data.main.temp);
                  console.log(data.wind.speed);
@@ -75,7 +83,7 @@ var getCurrentWeather = function (city) {
          }
      })
      .catch(function (error) {
-         alert('City does not exist');
+         alert('Unable to connect to Open Weather');
      });
 };
 
@@ -89,16 +97,15 @@ var getCurrentWeather = function (city) {
 //             console.log(response);
 //             response.json().then(function (data) {
 //                 console.log(data); 
-//                //  displayWeather();
 //                 cityName = city.name;
-//                 console.log(typeof cityName)              
+
 //             });
 //         } else {
 //             alert('Error: ' + response.statusText);
 //         }
 //     })
 //     .catch(function (error) {
-//         alert('City does not exist');
+//         alert('Unable to connect to Open Weather');
 //     });
 // };
 
