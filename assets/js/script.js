@@ -1,6 +1,8 @@
 var APIKey = "db2abe03dbd181408bf857199d38b427";
+var currentDay = dayjs().format('M/D/YYYY');
 var cityInput;
-var cityNameDate = document.getElementById('name-date');
+var futureForecast;
+var cityNameDateEL = document.getElementById('name-date');
 var cityLat = "";
 var cityLon = "";
 var currentIconEl = document.getElementById('current-icon');
@@ -73,6 +75,7 @@ var getCurrentWeather = function (city) {
                     var currentWind = data.wind.speed;
                     var currentHumid = data.main.humidity;
                     var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+                    cityNameDateEL.textContent = cityName + " " + currentDay;
                     currentTempEl.textContent = "Temp: " + currentTemp;
                     currentWindEl.textContent = "Wind: " + currentWind;
                     currentHumidEl.textContent = "Humidity: " + currentHumid;
@@ -87,7 +90,7 @@ var getCurrentWeather = function (city) {
         });
 };
 
-// // Gets cities future weather by lat and lon coordinates
+// // Gets cities future weather and appends them to the page
 var getFutureWeather = function (city) {
     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
 
@@ -97,12 +100,13 @@ var getFutureWeather = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    cityName = city.name;
-                    console.log(data.name);
-                    console.log(data.main.temp);
-                    console.log(data.wind.speed);
-                    console.log(data.main.humidity);
-                    console.log(currentIconEl);
+                    futureForecast = data.list;
+                    displayFutureWeather(futureForecast);
+                    // console.log(data.name);
+                    // console.log(data.main.temp);
+                    // console.log(data.wind.speed);
+                    // console.log(data.main.humidity);
+                    // console.log(currentIconEl);
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -114,41 +118,52 @@ var getFutureWeather = function (city) {
 };
 
 //var displayRepos
-var displayWeather = function (repos, searchTerm) {
-    if (repos.length === 0) {
-        repoContainerEl.textContent = 'No repositories found.';
-        return;
-    }
+var displayFutureWeather = function (future) {
 
-    repoSearchTerm.textContent = searchTerm;
-
-    for (var i = 0; i < repos.length; i++) {
-        var repoName = repos[i].owner.login + '/' + repos[i].name;
-
-        var repoEl = document.createElement('a');
-        repoEl.classList = 'list-item flex-row justify-space-between align-center';
-        repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
-
-        var titleEl = document.createElement('span');
-        titleEl.textContent = repoName;
-
-        repoEl.appendChild(titleEl);
-
-        var statusEl = document.createElement('span');
-        statusEl.classList = 'flex-row align-center';
-
-        if (repos[i].open_issues_count > 0) {
-            statusEl.innerHTML =
-                "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-        } else {
-            statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+    var fiveDayForecast = [];
+    // Grabs one forecast for each of the 5 days
+    for (var i = 0; i < future.length; i++) {
+        if (i % 8 == 0) {
+            fiveDayForecast.push(future[i]);
         }
-
-        repoEl.appendChild(statusEl);
-
-        repoContainerEl.appendChild(repoEl);
     }
-};
+        console.log(fiveDayForecast);        
+    };
+
+
+
+
+
+
+
+
+//     {
+//         var repoName = repos[i].owner.login + '/' + repos[i].name;
+
+//         var repoEl = document.createElement('a');
+//         repoEl.classList = 'list-item flex-row justify-space-between align-center';
+//         repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
+
+//         var titleEl = document.createElement('span');
+//         titleEl.textContent = repoName;
+
+//         repoEl.appendChild(titleEl);
+
+//         var statusEl = document.createElement('span');
+//         statusEl.classList = 'flex-row align-center';
+
+//         if (repos[i].open_issues_count > 0) {
+//             statusEl.innerHTML =
+//                 "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
+//         } else {
+//             statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+//         }
+
+//         repoEl.appendChild(statusEl);
+
+//         repoContainerEl.appendChild(repoEl);
+//     }
+// };
 
 
 // // var buttonClickHandler 

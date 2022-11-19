@@ -7,8 +7,6 @@ body {
     line-height: 1;
 }
 
-
-
 header {
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(39, 9, 121, 1) 35%, rgba(87, 124, 246, 1) 100%);
@@ -16,4 +14,10 @@ header {
 
 li {
     list-style: none;
+    font-size: 20px;
+}
+
+h3
+.card-header {
+    font-weight: bold;
 }
