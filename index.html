@@ -10,6 +10,8 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather App</title>
 </head>
@@ -24,7 +26,8 @@
             <div class="card">
                 <h2 class="card-title">Search for a City:</h2>
                 <form class="card-body">
-                    <input id="search-input" type="text" autofocus="true" class="form-input" placeholder="San Antonio" />
+                    <input id="search-input" type="text" autofocus="true" class="form-input"
+                        placeholder="San Antonio" />
                     <input type="submit" id="submit-btn" class="btn btn-block btn-success mt-2" value="Search" />
                 </form>
                 <hr class="dropdown-divider">
@@ -35,8 +38,8 @@
         <!--Current Day Weather Card-->
         <div class="col-12 col-md-8">
             <div class="border border-dark ">
-                <h3>City name and date</h3>
-                <i>weather icon</i>
+                <h3 id="name-date"></h3>
+                <img id="current-icon" src=""></img>
                 <ul class="list-group list-group-flush">
                     <li id="curtemp" class="list-group-temp"></li>
                     <li id="curwind" class="list-group-wind"></li>
