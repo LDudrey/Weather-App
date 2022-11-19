@@ -1,10 +1,11 @@
 var APIKey = "db2abe03dbd181408bf857199d38b427";
 var currentDay = dayjs().format('M/D/YYYY');
 var cityInput;
-var futureForecast;
-var cityNameDateEL = document.getElementById('name-date');
 var cityLat = "";
 var cityLon = "";
+var futureForecast;
+var cityNameDateEL = document.getElementById('name-date');
+var fiveDayCards = document.getElementById('five-day');
 var currentIconEl = document.getElementById('current-icon');
 var currentTempEl = document.getElementById('curtemp');
 var currentWindEl = document.getElementById('curwind');
@@ -69,12 +70,11 @@ var getCurrentWeather = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    //  displayWeather();
                     var cityName = data.name;
                     var currentTemp = data.main.temp;
                     var currentWind = data.wind.speed;
                     var currentHumid = data.main.humidity;
-                    var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+                    var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
                     cityNameDateEL.textContent = cityName + " " + currentDay;
                     currentTempEl.textContent = "Temp: " + currentTemp;
                     currentWindEl.textContent = "Wind: " + currentWind;
@@ -90,7 +90,7 @@ var getCurrentWeather = function (city) {
         });
 };
 
-// // Gets cities future weather and appends them to the page
+// Gets cities future 5 day weather forecast
 var getFutureWeather = function (city) {
     var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
 
@@ -117,9 +117,9 @@ var getFutureWeather = function (city) {
         });
 };
 
-//var displayRepos
-var displayFutureWeather = function (future) {
+// Displays the data into the 5 forecast cards
 
+var displayFutureWeather = function (future) {
     var fiveDayForecast = [];
     // Grabs one forecast for each of the 5 days
     for (var i = 0; i < future.length; i++) {
@@ -127,58 +127,57 @@ var displayFutureWeather = function (future) {
             fiveDayForecast.push(future[i]);
         }
     }
-        console.log(fiveDayForecast);        
-    };
+    console.log(fiveDayForecast);
+    var dayCount = 0;
+    for (i = 0; i < fiveDayForecast.length; i++) {
+        var fiveDate = document.querySelectorAll('.card-date');
+        var fiveImage = document.querySelectorAll('.icon');
+        var fiveTemp = document.querySelectorAll('#temp');
+        var fiveWind = document.querySelectorAll('#wind');
+        var fiveHumid = document.querySelectorAll('#humid');
+        console.log(fiveDate);
+        console.log(dayCount);
+
+        fiveDate[i].textContent = dayjs().add(dayCount, 'day').format('M/D/YYYY');
+        fiveImage[i].src = "http://openweathermap.org/img/wn/" + fiveDayForecast[i].weather[0].icon + ".png";
+        fiveTemp[i].textContent = "Temp: " + fiveDayForecast[i].main.temp;
+        fiveWind[i].textContent = "Wind: " + fiveDayForecast[i].wind.speed;
+        fiveHumid[i].textContent = "Humidity: " + fiveDayForecast[i].main.humidity;
+        dayCount++;
+    }
+};
 
 
 
+//         var weatherIcon = document.createElement('img');
+//         weatherIcon.src = "http://openweathermap.org/img/wn/" + fiveDayForecast[0].weather[0].icon + ".png";
+//         weatherIcon.appendChild(listContainer);
+
+//         var listTemp = document.createElement('li');
+//         listTemp.textContent = fiveDayForecast[0].main.temp;
+//         listTemp.appendChild(weatherIcon);
+
+//         var listWind = document.createElement('li');
+//         listWind.textContent = fiveDayForecast[0].wind.speed;
+//         listWind.appendChild(listTemp);
+
+//         var listHumid = document.createElement('li');
+//         listHumid.textContent = fiveDayForecast[0].main.humidity;
+//         listHumid.appendChild(listWind);
+
+//         dayCount++;
+//         console.log(futureHeader);
+//     })
 
 
-
-
-
-//     {
-//         var repoName = repos[i].owner.login + '/' + repos[i].name;
-
-//         var repoEl = document.createElement('a');
-//         repoEl.classList = 'list-item flex-row justify-space-between align-center';
-//         repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
-
-//         var titleEl = document.createElement('span');
-//         titleEl.textContent = repoName;
-
-//         repoEl.appendChild(titleEl);
-
-//         var statusEl = document.createElement('span');
-//         statusEl.classList = 'flex-row align-center';
-
-//         if (repos[i].open_issues_count > 0) {
-//             statusEl.innerHTML =
-//                 "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-//         } else {
-//             statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-//         }
-
-//         repoEl.appendChild(statusEl);
-
-//         repoContainerEl.appendChild(repoEl);
-//     }
 // };
+
 
 
 // // var buttonClickHandler 
 // var pastSearchButton = function (event) {
 //     var prevCities = document.querySelector;
 
-
-
-
-
-//     // var displayIssues
-// var displayPastSearch = function (cities) {
-
-// var geoCurrent = 'http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit=5&appid={API key};
-// var geoCurrentUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',&limit=1&appid=' + APIKey;
 
 searchButtonEl.addEventListener('click', searchSubmit);
 // pastSearchEl.addEventListener('click', buttonClickHandler);
@@ -191,21 +190,56 @@ searchButtonEl.addEventListener('click', searchSubmit);
     <button id="search-history" class="btn btn-secondary" type="button">search results</button>
 </div> */
 
-// Git it Done page appending repositories
-// <a class="list-item flex-row justify-space-between align-center" href="./single-repo.html?repo=LDudrey/Coding-Quiz">
-/* <span>LDudrey/Coding-Quiz</span>
-<span class="flex-row align-center">
-    <i class="fas fa-check-square status-icon icon-success"></i>
-    </span>
-    </a> */
 
-// 5-day Forecast Cards
-/* <div class="card bg-dark text-light col-2 mx-2">
-    <div class="card-header">Date</div>
-    <ul class="list-group list-group-flush">
-        <i>weather icon</i>
-        <li class="list-group-item bg-dark text-light">temp</li>
-        <li class="list-group-item bg-dark text-light">wind</li>
-        <li class="list-group-item bg-dark text-light">humidity</li>
-    </ul>
-</div> */
+// Javascript Object Test
+// https://softauthor.com/create-html-element-in-javascript/
+// fiveDayCards.appendChild(
+//     Object.assign(
+//         document.createElement('div'), {
+//         classList: 'card bg-dark text-light col-2 mx-2',
+//     }
+//     )
+// ).appendChild(
+//     Object.assign(
+//         document.createElement('h2'), {
+//         classList: 'card-header',
+//         textContent: dayjs().add(dayCount, 'day'),
+//     }
+//     )
+// ).appendChild(
+//     Object.assign(
+//         document.createElement('img'), {
+//         src: "http://openweathermap.org/img/wn/" + fiveDayForecast[0].weather[0].icon + ".png",
+//     }
+//     )
+// ).appendChild(
+//     Object.assign(
+//         document.createElement('ul'), {
+//         classList: 'list-group list-group-flush',
+//     }
+//     )
+// ).insertAdjacentElement(
+//     afterbegin(
+//         document.createElement('li'), {
+//         classList: "list-group-temp m-1",
+//         textContent: fiveDayForecast[0].main.temp,
+//     }
+//     )
+// ).insertAdjacentElement(
+//     afterbegin(
+//         document.createElement('li'), {
+//         classList: "list-group-wind m-1",
+//         textContent: fiveDayForecast[0].wind.speed,
+//     }
+//     )
+// ).insertAdjacentElement(
+//     afterbegin(
+//         document.createElement('li'), {
+//         classList: "list-group-humid m-1",
+//         textContent: fiveDayForecast[0].main.humidity,
+//     }
+//     )
+// )
+// dayCount++;
+// })
+// };

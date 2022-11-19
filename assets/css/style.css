@@ -17,7 +17,15 @@ li {
     font-size: 20px;
 }
 
+h2,
 h3
-.card-header {
+ {
     font-weight: bold;
 }
+
+.visible {
+    visibility: visible;
+  }
+  .invisible {
+    visibility: hidden;
+  }

@@ -21,23 +21,24 @@
         <h1 class="d-flex justify-content-center">Weather Dashboard</h1>
     </header>
 
-    <main class="flex-row justify-space-between">
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <h2 class="card-title">Search for a City:</h2>
-                <form class="card-body">
-                    <input id="search-input" type="text" autofocus="true" class="form-input"
-                        placeholder="San Antonio" />
-                    <input type="submit" id="submit-btn" class="btn btn-block btn-success mt-2" value="Search" />
-                </form>
-                <hr class="dropdown-divider">
-                <div id="search-history" class="list-group"></div>
+    <main class="container">
+        <div class="row">
+            <div class="col-4 w-25">
+                <div class="card">
+                    <h2 class="card-title">Search for a City:</h2>
+                    <form class="card-body">
+                        <input id="search-input" type="text" autofocus="true" class="form-input"
+                            placeholder="San Antonio" />
+                        <input type="submit" id="submit-btn" class="btn btn-block btn-success mt-2" value="Search" />
+                    </form>
+                    <hr class="dropdown-divider">
+                    <div id="search-history" class="list-group"></div>
+                </div>
             </div>
-        </div>
-
+        
         <!--Current Day Weather Card-->
-        <div class="col-12 col-md-8">
-            <div class="border border-dark">
+        <div class="col-8 w-75">
+            <div id="current-card" class="border border-dark">
                 <h3 id="name-date"></h3>
                 <img id="current-icon" src=""></img>
                 <ul class="list-group list-group-flush">
@@ -47,68 +48,59 @@
                 </ul>
             </div>
         </div>
-
+    </div>
         <!-- Five Weather Cards -->
-        <div class="col-12 col-md-8">
+        <div class="row">
             <h3 class="my-3">5-Day Forecast</h3>
-            <div class="row container my-2">
+            <div id="five-day" class="col-8 my-2">
                 <div class="card bg-dark text-light col-2 mx-2">
-                    <div class="card-header">
-                        Date
-                    </div>
+                    <h2 class="card-date"></h2>
                     <ul class="list-group list-group-flush">
-                        <i>weather icon</i>
-                        <li id="temp" class="list-group-temp bg-dark text-light">temp</li>
-                        <li id="wind" class="list-group-wind bg-dark text-light">wind</li>
-                        <li id="humid" class="list-group-humid bg-dark text-light">humidity</li>
+                        <img class="icon" src=""></img>
+                        <li id="temp" class="list-group m-1"></li>
+                        <li id="wind" class="list-group m-1"></li>
+                        <li id="humid" class="list-group m-1"></li>
                     </ul>
                 </div>
                 <div class="card bg-dark text-light col-2 mx-2">
-                    <div class="card-header">
-                        Date
-                    </div>
+                    <h2 class="card-date"></h2>
                     <ul class="list-group list-group-flush">
-                        <i>weather icon</i>
-                        <li class="list-group-item bg-dark text-light">temp</li>
-                        <li class="list-group-item bg-dark text-light">wind</li>
-                        <li class="list-group-item bg-dark text-light">humidity</li>
+                        <img class="icon" src=""></img>
+                        <li id="temp" class="list-group m-1"></li>
+                        <li id="wind" class="list-group m-1"></li>
+                        <li id="humid" class="list-group m-1"></li>
                     </ul>
                 </div>
                 <div class="card bg-dark text-light col-2 mx-2">
-                    <div class="card-header">
-                        Date
-                    </div>
+                    <h2 class="card-date"></h2>
                     <ul class="list-group list-group-flush">
-                        <i>weather icon</i>
-                        <li class="list-group-item bg-dark text-light">temp</li>
-                        <li class="list-group-item bg-dark text-light">wind</li>
-                        <li class="list-group-item bg-dark text-light">humidity</li>
+                        <img class="icon" src=""></img>
+                        <li id="temp" class="list-group m-1"></li>
+                        <li id="wind" class="list-group m-1"></li>
+                        <li id="humid" class="list-group m-1"></li>
                     </ul>
                 </div>
                 <div class="card bg-dark text-light col-2 mx-2">
-                    <div class="card-header">
-                        Date
-                    </div>
+                    <h2 class="card-date"></h2>
                     <ul class="list-group list-group-flush">
-                        <i>weather icon</i>
-                        <li class="list-group-item bg-dark text-light">temp</li>
-                        <li class="list-group-item bg-dark text-light">wind</li>
-                        <li class="list-group-item bg-dark text-light">humidity</li>
+                        <img class="icon" src=""></img>
+                        <li id="temp" class="list-group m-1"></li>
+                        <li id="wind" class="list-group m-1"></li>
+                        <li id="humid" class="list-group m-1"></li>
                     </ul>
                 </div>
                 <div class="card bg-dark text-light col-2 mx-2">
-                    <div class="card-header">
-                        Date
-                    </div>
+                    <h2 class="card-date"></h2>
                     <ul class="list-group list-group-flush">
-                        <i>weather icon</i>
-                        <li class="list-group-item bg-dark text-light">temp</li>
-                        <li class="list-group-item bg-dark text-light">wind</li>
-                        <li class="list-group-item bg-dark text-light">humidity</li>
+                        <img class="icon" src=""></img>
+                        <li id="temp" class="list-group m-1"></li>
+                        <li id="wind" class="list-group m-1"></li>
+                        <li id="humid" class="list-group m-1"></li>
                     </ul>
                 </div>
             </div>
         </div>
+
     </main>
     <script src="./assets/js/script.js"></script>
 </body>
