@@ -23,93 +23,86 @@
 
     <main class="container">
         <div class="row">
-            <div class="col-4 w-25">
+            <div class="w-25">
                 <form class="">
                     <div class="form-group">
-                      <label id="search-title" class="m-3">Search for City:</label>
-                      <input id="search-input" type="text" autofocus="true" class="form-control" placeholder="San Antonio">
+                        <label id="search-title" class="m-3">Search for City:</label>
+                        <input id="search-input" type="text" class="form-control" placeholder="San Antonio" />
+                        <button id="submit-btn" type="submit" class="btn text-light w-100 mt-2">Search</button>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block mt-2">Search</button>
                 </form>
                 <hr class="dropdown-divider">
-                <div id="search-history" class="list-group"></div>
-                <!-- <div class="card">
-                    <h2 class="card-title">Search for a City:</h2>
-                    <form id="inputGroup-sizing-default" class="card-body">
-                        <input id="search-input" type="text" autofocus="true" class="form-input"
-                            placeholder="San Antonio" />
-                        <input type="submit" id="submit-btn" class="btn btn-success btn-block btn-lg mt-2" value="Search" />
-                    </form>
-                    <hr class="dropdown-divider">
-                    <div id="search-history" class="list-group"></div>
-                </div> -->
             </div>
-        
-        <!--Current Day Weather Card-->
-        <div class="col-8 w-75">
-            <div id="current-card" class="border border-dark">
-                <h3 id="name-date"></h3>
-                <img id="current-icon" src=""></img>
-                <ul class="list-group list-group-flush">
-                    <li id="curtemp" class="list-group p-2"></li>
-                    <li id="curwind" class="list-group p-2"></li>
-                    <li id="curhumid" class="list-group p-2"></li>
-                </ul>
+
+            <!--Current Day Weather Card-->
+            <div class="w-75">
+                <div id="current-card" class="border border-dark invisible">
+                    <h3 id="name-date"></h3>
+                    <img id="current-icon" src=""></img>
+                    <ul class="list-group list-group-flush">
+                        <li id="curtemp" class="list-group p-2"></li>
+                        <li id="curwind" class="list-group p-2"></li>
+                        <li id="curhumid" class="list-group p-2"></li>
+                    </ul>
+                </div>
             </div>
         </div>
-   
         <!-- Five Weather Cards -->
-        <div>
-            <h3 class="my-3">5-Day Forecast</h3>
-            <div id="five-day" class="row my-2">
-                <div class="card bg-dark text-light col-2 m-2">
-                    <h2 class="card-date"></h2>
-                    <ul class="list-group list-group-flush">
-                        <img class="icon" src=""></img>
-                        <li id="temp" class="list-group p-2"></li>
-                        <li id="wind" class="list-group p-2"></li>
-                        <li id="humid" class="list-group p-2"></li>
-                    </ul>
-                </div>
-                <div class="card bg-dark text-light col-2 m-2">
-                    <h2 class="card-date"></h2>
-                    <ul class="list-group list-group-flush">
-                        <img class="icon" src=""></img>
-                        <li id="temp" class="list-group p-2"></li>
-                        <li id="wind" class="list-group p-2"></li>
-                        <li id="humid" class="list-group p-2"></li>
-                    </ul>
-                </div>
-                <div class="card bg-dark text-light col-2 m-2">
-                    <h2 class="card-date"></h2>
-                    <ul class="list-group list-group-flush">
-                        <img class="icon" src=""></img>
-                        <li id="temp" class="list-group p-2"></li>
-                        <li id="wind" class="list-group p-2"></li>
-                        <li id="humid" class="list-group p-2"></li>
-                    </ul>
-                </div>
-                <div class="card bg-dark text-light col-2 m-2">
-                    <h2 class="card-date"></h2>
-                    <ul class="list-group list-group-flush">
-                        <img class="icon" src=""></img>
-                        <li id="temp" class="list-group p-2"></li>
-                        <li id="wind" class="list-group p-2"></li>
-                        <li id="humid" class="list-group p-2"></li>
-                    </ul>
-                </div>
-                <div class="card bg-dark text-light col-2 m-2">
-                    <h2 class="card-date"></h2>
-                    <ul class="list-group list-group-flush">
-                        <img class="icon" src=""></img>
-                        <li id="temp" class="list-group p-2"></li>
-                        <li id="wind" class="list-group p-2"></li>
-                        <li id="humid" class="list-group p-2"></li>
-                    </ul>
+        <div class="row">
+            <div id="search-history" class="list-group w-25"></div>
+
+            <div class="w-75">
+                <h3 id="forecast" class="my-3 invisible">5-Day Forecast</h3>
+                <div id="five-day" class="row">
+                    <div id="daycard" class="card bg-dark text-light col-2 m-2 invisible">
+                        <h4 class="card-date"></h4>
+                        <ul class="list-group list-group-flush">
+                            <img class="icon" src=""></img>
+                            <li id="temp" class="list-group p-2"></li>
+                            <li id="wind" class="list-group p-2"></li>
+                            <li id="humid" class="list-group p-2"></li>
+                        </ul>
+                    </div>
+                    <div id="daycard" class="card bg-dark text-light col-2 m-2 invisible">
+                        <h4 class="card-date"></h4>
+                        <ul class="list-group list-group-flush">
+                            <img class="icon" src=""></img>
+                            <li id="temp" class="list-group p-2"></li>
+                            <li id="wind" class="list-group p-2"></li>
+                            <li id="humid" class="list-group p-2"></li>
+                        </ul>
+                    </div>
+                    <div id="daycard" class="card bg-dark text-light col-2 m-2 invisible">
+                        <h4 class="card-date"></h4>
+                        <ul class="list-group list-group-flush">
+                            <img class="icon" src=""></img>
+                            <li id="temp" class="list-group p-2"></li>
+                            <li id="wind" class="list-group p-2"></li>
+                            <li id="humid" class="list-group p-2"></li>
+                        </ul>
+                    </div>
+                    <div id="daycard" class="card bg-dark text-light col-2 m-2 invisible">
+                        <h4 class="card-date"></h4>
+                        <ul class="list-group list-group-flush">
+                            <img class="icon" src=""></img>
+                            <li id="temp" class="list-group p-2"></li>
+                            <li id="wind" class="list-group p-2"></li>
+                            <li id="humid" class="list-group p-2"></li>
+                        </ul>
+                    </div>
+                    <div id="daycard" class="card bg-dark text-light col-2 m-2 invisible">
+                        <h4 class="card-date"></h4>
+                        <ul class="list-group list-group-flush">
+                            <img class="icon" src=""></img>
+                            <li id="temp" class="list-group p-2"></li>
+                            <li id="wind" class="list-group p-2"></li>
+                            <li id="humid" class="list-group p-2"></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     </main>
     <script src="./assets/js/script.js"></script>
 </body>

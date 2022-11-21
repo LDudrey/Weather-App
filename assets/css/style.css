@@ -1,35 +1,39 @@
-/* Header linear gradient */
-/* Courtesy of https://cssgradient.io/ */
-
 body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
 }
 
+/* Header linear gradient */
+/* Courtesy of https://cssgradient.io/ */
 header {
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(39, 9, 121, 1) 35%, rgba(87, 124, 246, 1) 100%);
 }
+
 #search-title {
     font-weight: bold;
     font-size: 30px;
 }
 
+#submit-btn {
+    background-color: rgba(87, 124, 246, 1) ;
+}
+
 li {
     list-style: none;
-    font-size: 20px;
 }
 
 h2,
-h3
- {
+h3,
+h4 {
     font-weight: bold;
 }
 
 .visible {
     visibility: visible;
-  }
-  .invisible {
+}
+
+.invisible {
     visibility: hidden;
-  }
+}

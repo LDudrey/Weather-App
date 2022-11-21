@@ -11,15 +11,16 @@ var currentTempEl = document.getElementById('curtemp');
 var currentWindEl = document.getElementById('curwind');
 var currentHumidEl = document.getElementById('curhumid');
 var citySearchEl = document.getElementById('search-input');
-var searchButtonEl = document.querySelector('#submit-btn');
-var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
+var searchButtonEl = document.getElementById('submit-btn');
+var searchHistoryEl = document.getElementById('search-history');
+var searchHistory;
+
 
 // Gathers users search parameter
 var searchSubmit = function (event) {
     event.preventDefault();
 
     cityInput = citySearchEl.value.trim();
-    console.log(cityInput)
 
     if (cityInput) {
         getCityLocation(cityInput);
@@ -31,7 +32,6 @@ var searchSubmit = function (event) {
 
 // Gets the city lat and lon coordinates
 // Country code https://www.iso.org/obp/ui/#search/code/
-// https://www.freecodecamp.org/news/check-if-javascript-array-is-empty-or-not-with-length/
 // https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 var getCityLocation = function (city) {
     var geoRequestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',840&limit=1&appid=' + APIKey;
@@ -39,9 +39,9 @@ var getCityLocation = function (city) {
     fetch(geoRequestUrl)
         .then(function (response) {
             if (response.ok) {
-                console.log(response);
+                // console.log(response);
                 response.json().then(function (data) {
-                    console.log(data);
+                    // console.log(data);
                     if (data.length === 0) {
                         alert('City does not exist!');
                     } else {
@@ -67,14 +67,17 @@ var getCurrentWeather = function (city) {
     fetch(geoCurrentUrl)
         .then(function (response) {
             if (response.ok) {
-                console.log(response);
+                // console.log(response);
                 response.json().then(function (data) {
-                    console.log(data);
+                    // console.log(data);
                     var cityName = data.name;
                     var currentTemp = data.main.temp;
                     var currentWind = data.wind.speed;
                     var currentHumid = data.main.humidity;
                     var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
+                    saveHistory(cityName);
+                    document.getElementById("current-card").classList.remove("invisible");
+                    document.getElementById("forecast").classList.remove("invisible");
                     cityNameDateEL.textContent = cityName + " " + currentDay;
                     currentTempEl.textContent = "Temp: " + currentTemp + " \u00B0F";
                     currentWindEl.textContent = "Wind: " + currentWind + " MPH";
@@ -97,16 +100,11 @@ var getFutureWeather = function (city) {
     fetch(geoCurrentUrl)
         .then(function (response) {
             if (response.ok) {
-                console.log(response);
+                // console.log(response);
                 response.json().then(function (data) {
-                    console.log(data);
+                    // console.log(data);
                     futureForecast = data.list;
                     displayFutureWeather(futureForecast);
-                    // console.log(data.name);
-                    // console.log(data.main.temp);
-                    // console.log(data.wind.speed);
-                    // console.log(data.main.humidity);
-                    // console.log(currentIconEl);
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -118,16 +116,15 @@ var getFutureWeather = function (city) {
 };
 
 // Displays the data into the 5 forecast cards
-
 var displayFutureWeather = function (future) {
     var fiveDayForecast = [];
-    // Grabs one forecast for each of the 5 days
+    // Grabs one 3 hour increment forecast for each of the 5 days
     for (var i = 0; i < future.length; i++) {
         if (i % 8 == 0) {
             fiveDayForecast.push(future[i]);
         }
     }
-    console.log(fiveDayForecast);
+    // console.log(fiveDayForecast);
     var dayCount = 0;
     for (i = 0; i < fiveDayForecast.length; i++) {
         var fiveDate = document.querySelectorAll('.card-date');
@@ -135,9 +132,8 @@ var displayFutureWeather = function (future) {
         var fiveTemp = document.querySelectorAll('#temp');
         var fiveWind = document.querySelectorAll('#wind');
         var fiveHumid = document.querySelectorAll('#humid');
-        console.log(fiveDate);
-        console.log(dayCount);
-
+        var fiveCards = document.querySelectorAll("#daycard");
+        fiveCards[i].classList = 'card bg-dark text-light col-2 m-2';
         fiveDate[i].textContent = dayjs().add(dayCount, 'day').format('M/D/YYYY');
         fiveImage[i].src = "http://openweathermap.org/img/wn/" + fiveDayForecast[i].weather[0].icon + ".png";
         fiveTemp[i].textContent = "Temp: " + fiveDayForecast[i].main.temp + " \u00B0F";
@@ -147,99 +143,47 @@ var displayFutureWeather = function (future) {
     }
 };
 
+// Tutor assistance with saveHistory, init and recallHistory functions
+var saveHistory = function (cities) {
+    var searchHistory = JSON.parse(localStorage.getItem('cities')) || [];
+    searchHistory = searchHistory.filter(removeDups);
+    searchHistory.push(cities);
+    localStorage.setItem('cities', JSON.stringify(searchHistory));
+    init();
+};
 
+function init() {
+    searchHistoryEl.innerHTML = "";
+    var cities = JSON.parse(localStorage.getItem("cities"));
+    if (!cities) {
+        return;
+    } else {
+        cities = cities.filter(removeDups);
+        for (i = 0; i < cities.length; i++) {
+            var histBtn = document.createElement('button');
+            histBtn.classList = 'btn btn-light text-dark m-1';
+            histBtn.textContent = cities[i];
+            searchHistoryEl.append(histBtn);
+        }
+    }
+};
 
-//         var weatherIcon = document.createElement('img');
-//         weatherIcon.src = "http://openweathermap.org/img/wn/" + fiveDayForecast[0].weather[0].icon + ".png";
-//         weatherIcon.appendChild(listContainer);
+// Function to check array for any duplicates
+// https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+// https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+// https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
+function removeDups(value, index, self) {
+    return self.indexOf(value) === index;
+}
 
-//         var listTemp = document.createElement('li');
-//         listTemp.textContent = fiveDayForecast[0].main.temp;
-//         listTemp.appendChild(weatherIcon);
+// Grabs the text from the previous search buttons
+function recallHistory(e) {
+    var histText = e.srcElement.innerHTML
+    console.log(histText);
+    getCityLocation(histText);
+};
 
-//         var listWind = document.createElement('li');
-//         listWind.textContent = fiveDayForecast[0].wind.speed;
-//         listWind.appendChild(listTemp);
-
-//         var listHumid = document.createElement('li');
-//         listHumid.textContent = fiveDayForecast[0].main.humidity;
-//         listHumid.appendChild(listWind);
-
-//         dayCount++;
-//         console.log(futureHeader);
-//     })
-
-
-// };
-
-
-
-// // var buttonClickHandler 
-// var pastSearchButton = function (event) {
-//     var prevCities = document.querySelector;
-
-
+searchHistoryEl.addEventListener('click', recallHistory);
 searchButtonEl.addEventListener('click', searchSubmit);
-// pastSearchEl.addEventListener('click', buttonClickHandler);
+init();
 
-
-
-// appending search history results
-/* <div class="d-grid gap-2">
-    <button id="search-history" class="btn btn-secondary" type="button">search results</button>
-    <button id="search-history" class="btn btn-secondary" type="button">search results</button>
-</div> */
-
-
-// Javascript Object Test
-// https://softauthor.com/create-html-element-in-javascript/
-// fiveDayCards.appendChild(
-//     Object.assign(
-//         document.createElement('div'), {
-//         classList: 'card bg-dark text-light col-2 mx-2',
-//     }
-//     )
-// ).appendChild(
-//     Object.assign(
-//         document.createElement('h2'), {
-//         classList: 'card-header',
-//         textContent: dayjs().add(dayCount, 'day'),
-//     }
-//     )
-// ).appendChild(
-//     Object.assign(
-//         document.createElement('img'), {
-//         src: "http://openweathermap.org/img/wn/" + fiveDayForecast[0].weather[0].icon + ".png",
-//     }
-//     )
-// ).appendChild(
-//     Object.assign(
-//         document.createElement('ul'), {
-//         classList: 'list-group list-group-flush',
-//     }
-//     )
-// ).insertAdjacentElement(
-//     afterbegin(
-//         document.createElement('li'), {
-//         classList: "list-group-temp m-1",
-//         textContent: fiveDayForecast[0].main.temp,
-//     }
-//     )
-// ).insertAdjacentElement(
-//     afterbegin(
-//         document.createElement('li'), {
-//         classList: "list-group-wind m-1",
-//         textContent: fiveDayForecast[0].wind.speed,
-//     }
-//     )
-// ).insertAdjacentElement(
-//     afterbegin(
-//         document.createElement('li'), {
-//         classList: "list-group-humid m-1",
-//         textContent: fiveDayForecast[0].main.humidity,
-//     }
-//     )
-// )
-// dayCount++;
-// })
-// };
