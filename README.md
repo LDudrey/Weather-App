@@ -1,6 +1,4 @@
 # Weather-Forecaster
-
-# Personal-Work-Scheduler
 Welcome to my Weather Forecaster! 
 
 ## Description
@@ -19,9 +17,9 @@ Below I'm showing how the Weather Forecaster App looks and functions. The first 
 
 
 ## Credits
-Many various tutorials from:
+Weather functionality made possible by: https://openweathermap.org/
 
-https://api.jquery.com/
+Many various tutorials from:
 
 https://www.w3schools.com/
 
@@ -29,7 +27,7 @@ https://developer.mozilla.org/en-US/
 
 https://stackoverflow.com
 
-Many thanks to AskBCS and TA assistance.
+Many thanks to Tutoring, AskBCS and TA assistance.
 
 ## License
 Please refer to the LICENSE in the repo.

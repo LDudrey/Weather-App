@@ -30,10 +30,10 @@ h4 {
     font-weight: bold;
 }
 
-.visible {
-    visibility: visible;
-}
-
 .invisible {
     visibility: hidden;
+}
+
+footer{
+    text-align: center;
 }
