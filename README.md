@@ -4,7 +4,7 @@ Welcome to my Weather Forecaster!
 ## Description
 This useful app can be used to help plan your day and next 5 days based on the weather. 
 
-https://ldudrey.github.io/Personal-Work-Scheduler/
+https://ldudrey.github.io/Weather-Forecaster/
 
 Below I'm showing how the Weather Forecaster App looks and functions. The first example is how the page looks on first load. The search areas are empty since there is no saved search history. The second example shows when a city is searched a button shows under the search box to show previously searched city history.
 

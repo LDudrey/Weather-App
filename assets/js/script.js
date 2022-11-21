@@ -152,6 +152,7 @@ var saveHistory = function (cities) {
     init();
 };
 
+// Runs on page load to populate previous search history
 function init() {
     searchHistoryEl.innerHTML = "";
     var cities = JSON.parse(localStorage.getItem("cities"));
@@ -169,7 +170,6 @@ function init() {
 };
 
 // Function to check array for any duplicates
-// https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
 // https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
 // https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
 function removeDups(value, index, self) {
