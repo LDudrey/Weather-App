@@ -2,18 +2,18 @@
 Welcome to my Weather Forecaster! 
 
 ## Description
-Keeping track of most work days that are filled with many events and activities can be stressful. This application helps keep track of activites that are happening every hour during a 9am - 5pm business day. 
+This useful app can be used to help plan your day and next 5 days based on the weather. 
 
 https://ldudrey.github.io/Personal-Work-Scheduler/
 
-Below I'm showing how the Weather Forecaster App looks and functions. The first example is how the page looks on first load. The search areas are empty since there is no saved schedule information. Saving the schedule is done by clicking the blue save button at the end of the rows. The text areas changed color based on the time of day. Grey is past activities, red is current and green is in the future. At the bottom is a red 'Clear Day' button that will clear out any stored schedule information.
+Below I'm showing how the Weather Forecaster App looks and functions. The first example is how the page looks on first load. The search areas are empty since there is no saved search history. The second example shows when a city is searched a button shows under the search box to show previously searched city history.
 
 1. Example of an empty search page.
-![The Work Day Scheduler webpage includes rows of hours, text area for schedule input, and a save button with clear day button at bottom of the page.](./assets/images/fullscreen%20Work%20Day%20Scheduler.png)
+![The Weather Forecaster webpage includes a search area and search button.](./assets/images/weather%20forecaster%20empty.png)
 
-2. Example of a day filled with activities.
-![The Work Day Scheduler webpage includes rows of hours, text area for schedule input, and a save button with clear day button at bottom of the page.](./assets/images/loaded%20Work%20Day%20Scheduler.png)
 
+2. Example of multiple city search.
+![The Weather Forecaster webpage includes includes a search area and search button. A area showing current weather conditions and 5 cards showing next 5 day forecast.](./assets/images/Weather%20Forecaster%20Multiple.png)
 
 
 ## Credits
