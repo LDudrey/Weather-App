@@ -6,7 +6,7 @@ This useful app can be used to help plan your day and next 5 days based on the w
 
 https://ldudrey.github.io/Weather-Forecaster/
 
-Below I'm showing how the Weather Forecaster App looks and functions. The first example is how the page looks on first load. The search areas are empty since there is no saved search history. The second example shows when a city is searched a button shows under the search box to show previously searched city history.
+Below I'm showing how the Weather Forecaster App looks and functions. The first example is how the page looks on first load. The search areas are empty since there is no saved search history. The second example shows when a city is searched a button shows under the search box to show previously searched city history. An the current weather appears in the largest top card and the next 5 days are underneath in the smaller cards.
 
 1. Example of an empty search page.
 ![The Weather Forecaster webpage includes a search area and search button.](./assets/images/weather%20forecaster%20empty.png)
