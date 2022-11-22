@@ -27,6 +27,8 @@ https://developer.mozilla.org/en-US/
 
 https://stackoverflow.com
 
+https://www.javascripttutorial.net
+
 Many thanks to Tutoring, AskBCS and TA assistance.
 
 ## License
