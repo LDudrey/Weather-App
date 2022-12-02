@@ -34,7 +34,7 @@ var searchSubmit = function (event) {
 // Country code https://www.iso.org/obp/ui/#search/code/
 // https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 var getCityLocation = function (city) {
-    var geoRequestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + ',840&limit=1&appid=' + APIKey;
+    var geoRequestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + ',840&limit=1&appid=' + APIKey;
 
     fetch(geoRequestUrl)
         .then(function (response) {
@@ -62,7 +62,7 @@ var getCityLocation = function (city) {
 
 // Gets cities current weather by lat and lon coordinates
 var getCurrentWeather = function (city) {
-    var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/weather?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
+    var geoCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
 
     fetch(geoCurrentUrl)
         .then(function (response) {
@@ -74,7 +74,7 @@ var getCurrentWeather = function (city) {
                     var currentTemp = data.main.temp;
                     var currentWind = data.wind.speed;
                     var currentHumid = data.main.humidity;
-                    var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
+                    var currentIcon = "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
                     saveHistory(cityName);
                     document.getElementById("current-card").classList.remove("invisible");
                     document.getElementById("forecast").classList.remove("invisible");
@@ -95,7 +95,7 @@ var getCurrentWeather = function (city) {
 
 // Gets cities future 5 day weather forecast
 var getFutureWeather = function (city) {
-    var geoCurrentUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
+    var geoCurrentUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + cityLat + '&lon=' + cityLon + '&appid=' + APIKey + "&units=imperial";
 
     fetch(geoCurrentUrl)
         .then(function (response) {
@@ -135,7 +135,7 @@ var displayFutureWeather = function (future) {
         var fiveCards = document.querySelectorAll("#daycard");
         fiveCards[i].classList = 'card bg-dark text-light col-2 m-2';
         fiveDate[i].textContent = dayjs().add(dayCount, 'day').format('M/D/YYYY');
-        fiveImage[i].src = "http://openweathermap.org/img/wn/" + fiveDayForecast[i].weather[0].icon + ".png";
+        fiveImage[i].src = "https://openweathermap.org/img/wn/" + fiveDayForecast[i].weather[0].icon + ".png";
         fiveTemp[i].textContent = "Temp: " + fiveDayForecast[i].main.temp + " \u00B0F";
         fiveWind[i].textContent = "Wind: " + fiveDayForecast[i].wind.speed + " MPH";
         fiveHumid[i].textContent = "Humidity: " + fiveDayForecast[i].main.humidity + " \u0025";
